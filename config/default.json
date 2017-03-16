@@ -1,0 +1,15 @@
+{
+    "authC": {
+        "apiKeyHeader": "x-api-key",
+        "apiKeys": [
+            "6940A330-108D-4FB6-AD0F-C5B65C5D3236"
+        ]
+    },
+    "smtp": {
+        "host": "smtp.sendgrid.net",
+        "port": 465,
+        "ssl": true,
+        "username": "apikey",
+        "password": "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"
+    }
+}

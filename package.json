@@ -1,0 +1,26 @@
+{
+  "name": "email-svc",
+  "version": "1.0.0",
+  "description": "Encapsulate Smtp Service in a Restful End-Point",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha /test/smpt.test.js"
+  },
+  "keywords": [
+    "email",
+    "smtp",
+    "node.js",
+    "restful"
+  ],
+  "author": "Vlad Khazin (vladimir.khazin@icssolutions.ca)",
+  "license": "ISC",
+  "dependencies": {
+    "bluebird": "3.5.0",
+    "config": "1.25.1",
+    "emailjs": "^1.0.8"
+  },
+  "devDependencies": {
+    "mocha": "2.5.3",
+    "chai": "3.5.0"
+  }
+}
