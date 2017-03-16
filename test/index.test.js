@@ -91,7 +91,6 @@ describe('index', function() {
         .done(function(){
             done();
         });
-
     });  
 
     it('fail sending email due authC error', function(done) {
@@ -131,15 +130,10 @@ describe('index', function() {
             }  
         })
         .then((response) => {
-            console.error(response);
-            assert.fail();
-        })
-        .catch(err => {
-            assert.equal(err.code, 401, 'Response status should be equal 200!');
+            assert.equal(response.code, 401, 'Response status should be equal 401!');
         })
         .done(function(){
             done();
         });
-
     });  
 });

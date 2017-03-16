@@ -19,10 +19,7 @@ describe('authC', function() {
     it('Failure', function(done) {
         authC.authenticate('bad-apple')
             .then(response => {
-                assert.notEqual(response, false, 'Response should be false!')
-            })
-            .catch(function(response){
-                assert.equal(response, false, 'Response should be false!');
+                assert.equal(response, false, 'Response should be false!')
             })
             .done(function(){
                 done();

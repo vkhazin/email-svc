@@ -23,22 +23,18 @@ const parseInput = function (input) {
     return output;
 };
 
-const echo = (context) => {
+const echo = () => {
     return echoModule.echo()
         .then(response => {
             const httpResponse = {
                 status: 200,
                 body: response
             };
-            context.done(null, {
-                httpResponse
-            });
-            //For testing purposes
             return promise.resolve(httpResponse);
         });
 }
 
-const sendEmail = (context, body) => {
+const sendEmail = (body) => {
     return postman.send(
         body.from,
         body.to,
@@ -49,8 +45,6 @@ const sendEmail = (context, body) => {
             code: 200,
             body: response
         };
-        context.done(null, httpResponse);
-        //For testing purposes
         return promise.resolve(httpResponse);
     });
 };
@@ -60,51 +54,48 @@ module.exports = function (context, req) {
     logger.trace(req);
 
     if (req.method.toLowerCase() == 'get' && req.headers['x-original-url'].toLowerCase() == '/api/email') {
-        return promise.resolve(echo(context));
+        return promise.resolve(echo());
     } else if (req.method.toLowerCase() == 'post') {
 
         const xApiKey = (req.headers)? req.headers[config.authC.apiKeyHeader]: null;
         const handlerStart = process.hrtime();
 
         return authC.authenticate(xApiKey)
-            //Authentication error
-            .catch(result => {
-                let response = {
-                    code: 401,
-                    body: {
-                        message: "Invalid or missing x-api-key"
-                    }
-                };
-                context.done(null, response);
-                return promise.reject(response);
-            })
             .then(authCResult => {
-                return promise.resolve(sendEmail(context, req.body))
-                    .then((httpResponse) => {
-                        logger.info('Performance::handler::success::' + (process.hrtime(handlerStart)[1]) / ns2ms)
-                        return promise.resolve(httpResponse);
-                    })
-                    //Unknown error
-                    .catch(err => {
-                        logger.info('Performance::handler::failure::' + (process.hrtime(handlerStart)[1]) / ns2ms)
-                        logger.error(err);
-                        err = {
-                            code: 500,
-                            body: {
-                                message: 'Unknown error has occurred'
-                            }
-                        };
-                        logger.error(err)
-                        context.done(null, err);
-                        return promise.reject(err)
-                    });                 
+                if (authCResult == true) {
+                    return promise.resolve(sendEmail(req.body))
+                        .then((httpResponse) => {
+                            logger.info('Performance::handler::success::' + (process.hrtime(handlerStart)[1]) / ns2ms)
+                            return promise.resolve(httpResponse);
+                        })
+                        //Unknown error
+                        .catch(err => {
+                            logger.info('Performance::handler::failure::' + (process.hrtime(handlerStart)[1]) / ns2ms)
+                            logger.error(err);
+                            err = {
+                                code: 500,
+                                body: {
+                                    message: 'Unknown error has occurred'
+                                }
+                            };
+                            logger.error(err)
+                            return promise.reject(err)
+                        });
+                } else {
+                    let response = {
+                        code: 401,
+                        body: {
+                            message: "Invalid or missing x-api-key"
+                        }
+                    };
+                    return promise.resolve(response);
+                }               
             })
     } else {
         let response = {
             code: 400,
             message: 'Bad Request'
         };
-        context.done(response);
         return promise.resolve(response)
     }
 };
