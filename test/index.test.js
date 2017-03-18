@@ -44,7 +44,7 @@ describe('index', function() {
 
     });
 
-    it('sendEmail', function(done) {
+    it('sendEmail success', function(done) {
         const context = {
             done: function(err, res) {
             }
@@ -82,7 +82,7 @@ describe('index', function() {
             }  
         })
         .then(function(response){
-            assert.equal(response.code, 200, 'Response status should be equal 200!');
+            assert.equal(response.status, 200, 'Response status should be equal 200!');
         })
         .catch(err => {
             logger.error(err);
@@ -130,7 +130,7 @@ describe('index', function() {
             }  
         })
         .then((response) => {
-            assert.equal(response.code, 401, 'Response status should be equal 401!');
+            assert.equal(response.status, 401, 'Response status should be equal 401!');
         })
         .done(function(){
             done();

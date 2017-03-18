@@ -6,7 +6,8 @@ const promise       = require('bluebird');
 const process       = require('process');
 const packageJson   = require('./package');
 const ns2ms         = 1000000;
-const config 		= require('config');
+//require('config') fails on Azure Web Function
+const config 		= require('./config/default.json');
 const logger 		= require('./logger').create(config, null);
 const echoModule    = require('./echo').create(config, logger);
 const authC         = require('./authC').create(config, logger);
@@ -42,7 +43,7 @@ const sendEmail = (body) => {
         body.body
     ).then(response => {
         const httpResponse = {
-            code: 200,
+            status: 200,
             body: response
         };
         return promise.resolve(httpResponse);
@@ -73,7 +74,7 @@ module.exports = function (context, req) {
                             logger.info('Performance::handler::failure::' + (process.hrtime(handlerStart)[1]) / ns2ms)
                             logger.error(err);
                             err = {
-                                code: 500,
+                                status: 500,
                                 body: {
                                     message: 'Unknown error has occurred'
                                 }
@@ -83,7 +84,7 @@ module.exports = function (context, req) {
                         });
                 } else {
                     let response = {
-                        code: 401,
+                        status: 401,
                         body: {
                             message: "Invalid or missing x-api-key"
                         }
@@ -93,7 +94,7 @@ module.exports = function (context, req) {
             })
     } else {
         let response = {
-            code: 400,
+            status: 400,
             message: 'Bad Request'
         };
         return promise.resolve(response)
