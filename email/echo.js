@@ -9,7 +9,8 @@ exports.create =  function (cnf, lgr) {
                 return promise.resolve({
                     name: packageJson.name,
                     version: packageJson.version,
-                    description: packageJson.description
+                    description: packageJson.description,
+					author: packageJson.author
                 });
 	        }
 	    };

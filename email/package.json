@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "Encapsulate Smtp Service in a Restful End-Point",
   "main": "index.js",
+  "engines" : { 
+    "node" : "4.2.4" 
+  },
   "scripts": {
     "test": "mocha ./email/test/index.test.js"
   },
