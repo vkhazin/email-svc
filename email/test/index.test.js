@@ -1,5 +1,5 @@
 const promise 		= require('bluebird');
-const config 		= require('config');
+const config 		= require('../config/default.json');
 const logger 		= require('../logger').create(config, null);
 const index			= require('../index')
 const assert		= require('chai').assert;

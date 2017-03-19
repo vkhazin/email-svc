@@ -4,7 +4,6 @@ Dependencies
 **********************************************************************************/
 const promise       = require('bluebird');
 const process       = require('process');
-const packageJson   = require('./package');
 const ns2ms         = 1000000;
 //require('config') fails on Azure Web Function
 const config 		= require('./config/default.json');
