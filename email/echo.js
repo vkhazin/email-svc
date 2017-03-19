@@ -1,6 +1,6 @@
 'use strict';
 const promise 				= require('bluebird');
-const packageJson           = require('./package.json');
+const packageJson           = require('../package.json');
 
 exports.create =  function (cnf, lgr) {
 	return (function () {
