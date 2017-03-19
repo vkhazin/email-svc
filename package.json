@@ -4,7 +4,7 @@
   "description": "Encapsulate Smtp Service in a Restful End-Point",
   "main": "index.js",
   "scripts": {
-    "test": "mocha /test/smpt.test.js"
+    "test": "mocha ./email/test/index.test.js"
   },
   "keywords": [
     "email",
@@ -16,7 +16,6 @@
   "license": "ISC",
   "dependencies": {
     "bluebird": "3.5.0",
-    "config": "1.25.1",
     "emailjs": "^1.0.8"
   },
   "devDependencies": {
