@@ -9,6 +9,7 @@ exports.create =  function (cnf, lgr) {
 	return (function () {
 	    return {
 	        authenticate: function (apiKey) {
+logger.log(config);				
 	        	const authC = (config.authC.apiKeys.indexOf(apiKey) >= 0)
                 return promise.resolve(authC);
 	        }
