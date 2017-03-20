@@ -52,7 +52,7 @@ const sendEmail = (body) => {
 module.exports = function (context, req) {
 
     logger.trace(req);
-
+    
     if (req.method.toLowerCase() == 'get' && req.headers['x-original-url'].toLowerCase() == '/api/email') {
         return promise.resolve(echo());
     } else if (req.method.toLowerCase() == 'post') {

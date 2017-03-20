@@ -7,7 +7,7 @@
     "node" : "4.2.4" 
   },
   "scripts": {
-    "test": "mocha ./email/test/index.test.js"
+    "test": "clear;mocha ./email/test/index.test.js"
   },
   "keywords": [
     "email",
