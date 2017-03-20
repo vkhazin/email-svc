@@ -25,7 +25,7 @@
 
 ## Deployment to Azure Function App ##
 * Using Azure Portal create new 'Function App'
-* For the template select web-hook and give your function name 'email' - the function name and folder name in source control must match
+* For the template select web-hook and give your function name 'email' - the function name and folder name in the source control must match
 * A sample index.js will be created and url for the web-hook will be auto-provisioned
 * Here is the confusing part comes - how to deploy on demand?
 * From function settings panel, select 'Function app settings' - it is in the left bottom area
@@ -33,10 +33,10 @@
 * In Service Settings select 'Deployment credentials' on the left hand
 * Configure deployment username and password - it can be used for git and for ftp deployment, record password - it cannot be displayed again as far as I could find
 * Back to Azure Portal find your Function App, select 'Function app settings' again
-* Select 'Go to Kudu' - new page will option
+* Select 'Go to Kudu' - new page will open
 * Select Kudu icon on top left
 * Select 'Source control info' in the main content - it will display json with git url
-* Now (finally) you can push your code to the git repo that represents Azure Function App
+* Now (finally) you can push your code to the git repo that represents Azure Function App, git url is from the 'Kudu' portal and username/password are from the 'Service Settings'
 
 ## Request ##
 ```
